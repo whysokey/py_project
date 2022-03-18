@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Gestor de tareas</title>
+
+
+    <link rel="stylesheet" href="{{ url_for ('static', filename='main.css')}}"
+
+    <!--Bootstrap con plantilla -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/sketchy/bootstrap.min.css" integrity="sha384-RxqHG2ilm4r6aFRpGmBbGTjsqwfqHOKy1ArsMhHusnRO47jcGqpIQqlQK/kmGy9R" crossorigin="anonymous">
+
+    <!--Fuente de Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
+
+
+</head>
+<body>
+
+    <main class="container p-4">
+
+        <h1 class="display-4 text-center mt-4 " style="color:white">Gestor de tareas</h1>
+
+        <div class="row">
+            <div class="col-md-4 offset-md-4 my-auto"> <!--Este div ocupará 4 columnas del espacio (centrado)-->
+                <div class="card"> <!--Creacion del objeto card-->
+                    <div class="card-header">
+                        <form action="/crear" method="post">
+                            <div class="form-group">
+                                <input type="text" name="tarea" placeholder="Escribe tu tarea..." class="form-control" autofocus>
+                            </div>
+                            <div class="form-group">
+                                <input type="date" name="fecha" id="fecha" class="form-control">
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-block">Añadir</button>
+                        </form>
+                        <form action="/crear" method="post">
+
+                        </form>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-group">
+
+                            {% for tarea in lista_tareas: %} <!--Ejecutar código Python-->
+                            <li class="list-group-item">
+                                <div>
+
+                                    <span class =" {% if tarea.hecha == True %} tarea_hecha {% endif %}" >
+
+                                        {{ tarea.contenido }} <!--Mostrar variable-->
+
+                                    </span>
+                                </div>
+
+                                <div>
+
+                                    <span class ="{% if tarea.fecha == tarea.hoy %} hoy {% endif %}" >
+
+                                    {{ tarea.fecha }}
+
+                                    </span>
+
+
+                                </div>
+                                <div class="position-sticky">
+                                     <a href="/hecho/{{ tarea.id }}">
+                                      <svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" fill="currentColor" class="bi bi-bookmark-check-fill" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd" d="M2 15.5V2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.74.439L8 13.069l-5.26 2.87A.5.5 0 0 1 2 15.5zm8.854-9.646a.5.5 0 0 0-.708-.708L7.5 7.793 6.354 6.646a.5.5 0 1 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0l3-3z"/>
+                                      </svg>
+                                     </a>
+
+                                    <a href="/eliminar/{{ tarea.id }}">
+                                      <svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" fill="red" class="bi bi-trash-fill" viewBox="0 0 16 16">
+                                        <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
+                                      </svg>
+
+                                    </a>
+
+                                </div>
+
+                            </li>
+                            {% endfor %} <!--Cierra el bucle for-->
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </main>
+</body>
+</html>
